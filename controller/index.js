@@ -1,0 +1,9 @@
+/**
+ * Created by Massil on 01/10/2017.
+ */
+var router = require("express").Router();
+
+//router.use('/mail' , require('./mailController'));
+router.use('/login' , require('./loginController'));
+router.use('/article' , require('./articleController'))
+module.exports = router;
