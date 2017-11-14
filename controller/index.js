@@ -5,5 +5,7 @@ var router = require("express").Router();
 
 //router.use('/mail' , require('./mailController'));
 router.use('/login' , require('./loginController'));
-router.use('/article' , require('./articleController'))
+router.use('/article' , require('./articleController'));
+router.use('/image' , require('./imageController'));
+
 module.exports = router;

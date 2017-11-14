@@ -6,7 +6,8 @@ var db = require("./../config/db");
 
 var user = new mongoose.Schema({
     username : 'String',
-    password : 'String'
+    password : 'String',
+    salt : 'String'
 });
 
 module.exports = db.model('User' , user);

@@ -10,7 +10,7 @@ var User = require("./model/user");
 
 app.use(cors());
 
-app.use('/public' , express.static(__dirname + '/public'));
+app.use('/data' , express.static(__dirname + '/data'));
 
 app.use('/' , require('./controller'));
 

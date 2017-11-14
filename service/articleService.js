@@ -15,16 +15,11 @@ module.exports = {
                 return "Error"
             }
         }).catch(function (error) {
-            console.log("Error: " + error);
             return "Error: " + error;
         });
     },
 
     getAllArticles : function () {
-        var articles = Article.find({}).exec().then();
-        if(articles)
-            return articles;
-        else
-            return [];
+        return Article.find({}).exec();
     }
 };
