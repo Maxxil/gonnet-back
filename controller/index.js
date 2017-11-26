@@ -7,5 +7,5 @@ var router = require("express").Router();
 router.use('/login' , require('./loginController'));
 router.use('/article' , require('./articleController'));
 router.use('/image' , require('./imageController'));
-
+router.use('/signin' , require('./signinController'));
 module.exports = router;
