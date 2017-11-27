@@ -9,7 +9,6 @@
   "author": "KADI Massil",
   "license": "ISC",
   "dependencies": {
-    "argon2": "^0.16.2",
     "cors": "^2.8.4",
     "crypto": "^1.0.1",
     "enum": "^2.5.0",
