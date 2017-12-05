@@ -7,6 +7,7 @@ var User = require('./../model/user');
 
 router.use(bodyParser.json());
 
+
 router.post('/' , function(req , res)
 {
     var username = req.username;

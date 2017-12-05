@@ -8,8 +8,10 @@ var mime = require('mime');
 var Article = require('./../model/article');
 var articleMapper = require("./../helper/mapper/articleMapper");
 var articleService = require("./../service/articleService");
+var session = require('express-session');
 
 router.use(bodyParser.json());
+
 
 var filename = '';
 
