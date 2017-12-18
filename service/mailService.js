@@ -13,7 +13,7 @@ module.exports =
 
             var messsage = {
                 from : "massil.kadi@gmail.com",
-                to : "massilkadi@gmail.com",
+                to : "anthony.gonnet.42@gmail.com",
                 subject : 'Contacte depuis www.anthony-gonnet.com',
                 text : text
             };
