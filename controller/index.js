@@ -8,5 +8,6 @@ router.use('/login' , require('./loginController'));
 router.use('/article' , require('./articleController'));
 router.use('/image' , require('./imageController'));
 router.use('/signin' , require('./signinController'));
+router.use('/mail' , require('./mailController'));
 
 module.exports = router;
