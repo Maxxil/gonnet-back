@@ -1,1 +1,2 @@
 # gonnet-back
+*.log
