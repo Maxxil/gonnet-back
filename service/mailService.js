@@ -5,22 +5,30 @@ var nodemail = require("nodemailer");
 
 var MailConfig = require('./../config/mailconf');
 
+var log = require('./../config/log4js');
+
 module.exports =
     {
         sendMail : function(text) {
             var smtpConfig = MailConfig;
             var transporter =  nodemail.createTransport(smtpConfig);
+            console.log("Transporter initialized");
 
             var messsage = {
                 from : "massil.kadi@gmail.com",
-                to : "anthony.gonnet.42@gmail.com",
-                subject : 'Contacte depuis www.anthony-gonnet.com',
-                text : text
+                to : "massil.kadi@gmail.com",
+                subject : 'Contact depuis www.anthony-gonnet.com',
+                text : text,
+                html : ''
             };
+            console.log("Message initialized");
 
             transporter.sendMail(messsage , function(err , info){
-                if(err)
+                if(err){
+                    console.error("An error occured");
                     console.log(err) ;
+                    this.log.error(err);
+                }
                 else
                     console.log("Email sent: " + info.response);
             });
