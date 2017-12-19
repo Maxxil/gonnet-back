@@ -2,3 +2,6 @@ node_modules
 
 # ignore image
 data/
+
+# log files
+*.log

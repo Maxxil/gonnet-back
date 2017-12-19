@@ -1,2 +1,1 @@
 # gonnet-back
-*.log
