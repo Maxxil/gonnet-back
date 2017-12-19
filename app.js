@@ -11,7 +11,6 @@ var User = require("./model/user");
 var configLog = require("./config/log4js");
 var configSession = require("./config/session");
 
-var env = process.env.ENVIRONMENT;
 var port = 8080;
 
 configLog.initialize();
