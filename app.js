@@ -25,19 +25,11 @@ app.use('/data' , express.static(__dirname + '/data'));
 app.use('/' , require('./controller'));
 
 configSession.initialize(app);
-console.log(env);
-if(env == "PROD")
-{
-    port = 8080;
-}
-else
-{
-    port = 4444;
-}
+
 
 try{
     app.listen(port, function(){
-        console.log("API is running");
+        console.log("API is running on port: " + port);
         log.info('API have been launched');
         mongoose.Promise = global.Promise;
         var promise = User.find(
