@@ -2,16 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a1e37fa0-405e-441f-8d08-fa731f9c5a37" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app.js" afterPath="$PROJECT_DIR$/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/mailconf.js" afterPath="$PROJECT_DIR$/config/mailconf.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controller/articleController.js" afterPath="$PROJECT_DIR$/controller/articleController.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controller/imageController.js" afterPath="$PROJECT_DIR$/controller/imageController.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controller/loginController.js" afterPath="$PROJECT_DIR$/controller/loginController.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controller/mailController.js" afterPath="$PROJECT_DIR$/controller/mailController.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package-lock.json" afterPath="$PROJECT_DIR$/package-lock.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/service/articleService.js" afterPath="$PROJECT_DIR$/service/articleService.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/service/mailService.js" afterPath="$PROJECT_DIR$/service/mailService.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -31,8 +22,8 @@
       <file leaf-file-name="app.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="147">
-              <caret line="14" column="15" lean-forward="false" selection-start-line="14" selection-start-column="15" selection-end-line="14" selection-end-column="15" />
+            <state relative-caret-position="189">
+              <caret line="27" column="17" lean-forward="false" selection-start-line="27" selection-start-column="17" selection-end-line="27" selection-end-column="17" />
               <folding />
             </state>
           </provider>
@@ -429,12 +420,12 @@
       <workItem from="1511806027642" duration="2662000" />
       <workItem from="1512675293593" duration="3150000" />
       <workItem from="1512923388058" duration="950000" />
-      <workItem from="1513620069125" duration="7940000" />
+      <workItem from="1513620069125" duration="8270000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="61856000" />
+    <option name="totallyTimeSpent" value="62186000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -778,8 +769,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="14" column="15" lean-forward="false" selection-start-line="14" selection-start-column="15" selection-end-line="14" selection-end-column="15" />
+        <state relative-caret-position="189">
+          <caret line="27" column="17" lean-forward="false" selection-start-line="27" selection-start-column="17" selection-end-line="27" selection-end-column="17" />
           <folding />
         </state>
       </provider>

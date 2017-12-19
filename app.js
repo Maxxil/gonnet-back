@@ -25,7 +25,7 @@ app.use('/data' , express.static(__dirname + '/data'));
 app.use('/' , require('./controller'));
 
 configSession.initialize(app);
-
+console.log(env);
 if(env == "PROD")
 {
     port = 8080;
