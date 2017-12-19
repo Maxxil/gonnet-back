@@ -7,15 +7,19 @@
  var Response = require('./../model/response');
  var MailService = require('./../service/mailService');
 
+ var log = require('./../config/log4js').getLogger('gonnetLogger');
+
  router.use(bodyParser.json());
 
  router.get('/' , function (req , res) {
+     log.info('Mail GET');
      var m = MailService.sendMail("Test");
      res.send(m);
      res.end();
  });
 
  router.post("/" , function(req , res){
+     log.info('Mail POST');
      var nom = req.body.nom;
      var email = req.body.email;
      var message = req.body.message;
@@ -29,7 +33,9 @@
          nom : nom,
          email : email,
          message : message
-     }).save();
+     }).save().catch(function (error) {
+         log.error(error);
+     });
      res.end("OK envoie");
  });
 

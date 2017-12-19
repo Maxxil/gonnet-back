@@ -10,8 +10,11 @@ var articleMapper = require("./../helper/mapper/articleMapper");
 var articleService = require("./../service/articleService");
 var session = require('express-session');
 
+var log = require('./../config/log4js').getLogger('gonnetLogger');
+
 router.use(bodyParser.json());
 
+log.level = 'debug';
 
 var filename = '';
 
@@ -31,25 +34,71 @@ var upload = multer({ //multer settings
 });
 
 router.get('/' , function (req , res) {
-    var promise = articleService.getAllArticles();
-    promise.then(function(articles){
-        res.send(articles);
-        res.end();
-    });
+    log.info('Article get');
+    try{
+        var promise = articleService.getAllArticles();
+        promise.then(function(articles){
+            res.send(articles);
+            res.end();
+        });
+    }
+    catch(error)
+    {
+        log.error(error);
+    }
 });
 
-router.post('/' ,upload.single('file'), function (req , res) {
-
-    if(req.file != undefined)
-    {
-        console.log(req.file.filename);
-        console.log("2");
-        var article = articleMapper.createArticle(req, filename);
-        var result = articleService.createArticle(article);
-        res.send(result);
-        res.end();
+router.get('/:idArticle' , function (req , res) {
+    log.info('Article get with params');
+    try{
+        var promise = articleService.getArticle(req.params.idArticle);
+        promise.then(function (article) {
+            console.log(article);
+            res.send(article);
+            res.end();
+        }).catch(function (error) {
+            console.log(error);
+            log.error(error);
+        });
     }
+    catch(error)
+    {
+        log.error(error);
+    }
+});
 
+router.put('/' ,upload.single('file'), function (req , res) {
+    log.info('Article POST');
+    try {
+        if(req.file != undefined)
+        {
+            console.log(req.file.filename);
+            console.log("2");
+            var article = articleMapper.createArticle(req, filename);
+            var result = articleService.createArticle(article);
+            res.send(result);
+            res.end();
+        }
+    }
+    catch(error)
+    {
+        log.error(error);
+    }
+});
+
+router.delete('/' , function (req , res) {
+    articleService.deleteArticle(req, res);
+});
+
+router.post('/:idArticle' , upload.single('file') , function (req , res) {
+    log.info('Article PUT');
+    try{
+        var article = articleService.updateArticle(req , res);
+    }
+    catch(error)
+    {
+        log.error(error);
+    }
 });
 
 module.exports = router;

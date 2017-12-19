@@ -7,6 +7,6 @@ module.exports = {
     secure : true,
     auth : {
         user : 'massil.kadi@gmail.com',
-        password : 'Zekiki3265'
+        pass : 'Zekiki3265'
     }
-}
+};

@@ -5,11 +5,13 @@ var router = require('express').Router();
 var bodyParser = require('body-parser');
 var User = require('./../model/user');
 
+var log = require('./../config/log4js').getLogger('gonnetLogger');
 router.use(bodyParser.json());
 
 
 router.post('/' , function(req , res)
 {
+    log.info('Login GET');
     var username = req.username;
     var password = req.password;
 
@@ -22,14 +24,14 @@ router.post('/' , function(req , res)
         {
             res.send("Error");
         }
+        res.end("END");
 
     }).catch(function (error) {
         console.log("Error: " + error);
         res.send(error);
+        log.error(error);
+        res.end("END");
     });
-
-    res.end("END");
-
 });
 
 module.exports = router;
