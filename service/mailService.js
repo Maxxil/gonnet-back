@@ -16,7 +16,7 @@ module.exports =
 
             var messsage = {
                 from : "massil.kadi@gmail.com",
-                to : "massil.kadi@gmail.com",
+                to : "anthony.gonnet.42@gmail.com",
                 subject : 'Contact depuis www.anthony-gonnet.com',
                 text : text,
                 html : ''
