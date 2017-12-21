@@ -5,3 +5,6 @@ data/
 
 # log files
 *.log
+
+# configuration variable
+./config/environnementconf.js
