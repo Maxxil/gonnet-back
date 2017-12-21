@@ -7,4 +7,4 @@ data/
 *.log
 
 # configuration variable
-./config/environnementconf.js
+config/environnementconf.js
