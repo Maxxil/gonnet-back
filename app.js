@@ -10,8 +10,9 @@ var app = express();
 var User = require("./model/user");
 var configLog = require("./config/log4js");
 var configSession = require("./config/session");
+var envConfig = require("./config/environnementconf");
 
-var port = 8080;
+var port = envConfig.getListeningPort();
 
 configLog.initialize();
 
