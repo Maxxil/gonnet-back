@@ -48,12 +48,14 @@ try{
             console.log(data);
             if(!data || data == undefined || data == [])
             {
+                console.log("Admin non trouvé");
                 var user = User({
                     username : 'admin',
                     password : 'admin'
                 });
                 var promise = user.save();
                 promise.then(function(data){
+                    console.log(data);
                     assert.equal(data.username , "admin");
                     assert.equal(data.password , "admin");
                 }).catch(function (error) {
@@ -61,6 +63,10 @@ try{
                     console.log(error);
                     log.error(error);
                 })
+            }
+            else
+            {
+                console.log("Admin trouvé");
             }
         }).catch(function (error) {
             console.log("ERROR");
