@@ -1,7 +1,8 @@
 node_modules
 
 # ignore image
-data/
+data/images/articles/*
+data/images/projects/*
 
 # log files
 *.log
