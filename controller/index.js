@@ -9,5 +9,6 @@ router.use('/article' , require('./articleController'));
 router.use('/image' , require('./imageController'));
 router.use('/signin' , require('./signinController'));
 router.use('/mail' , require('./mailController'));
+router.use('/project', require('./projectController'));
 
 module.exports = router;

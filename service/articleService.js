@@ -19,30 +19,21 @@ module.exports = {
             return "Error: " + error;
         });
     },
-    updateArticle : function (req) {
-        if(req.body.imageChanged == true)
-        {
-            var article = new Article({
-                title : req.body.title,
-                text : req.body.text,
-                date : new Date(),
-                image : req.file.filename
-            });
-        }
-        else{
-            var article = new Article({
-                title : req.body.title,
-                text : req.body.text,
-                date : new Date()
-            });
-        }
-        var getPromise = Article.find({
-            _id : req.body.id
-        });
-        getPromise.exec(function (result) {
-
-        }, function (error) {
-            
+    updateArticle : function (id, article) {
+        return Article.findById(id, function (err, result) {
+            if(result.title != article.title && article.title != '' && article.title != undefined)
+            {
+                result.title = article.title;
+            }
+            if(result.image != article.image && article.image != '' && article.image != undefined)
+            {
+                result.image = article.image;
+            }
+            if(result.text != article.text && article.text != '' && article.text != undefined)
+            {
+                result.text = article.text;
+            }
+            return result.save();
         })
     },
     deleteArticle : function (req , res) {

@@ -18,9 +18,15 @@ configLog.initialize();
 
 var log = configLog.getLogger('gonnetLogger');
 
-app.use(cors());
+var corsOptions = {
+    origin: 'http://localhost:4200',
+    allowedHeaders : 'Origin, X-Requested-With, Content-Type, Accept',
+    credentials: true
+};
+app.use(cors(corsOptions));
 
-app.use('/data' , express.static(__dirname + '/data'));
+app.use('/project/image' , express.static(__dirname + '/data/images/projects'));
+app.use('/article/image' , express.static(__dirname + '/data/images/articles'));
 
 app.use('/' , require('./controller'));
 

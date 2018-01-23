@@ -4,9 +4,7 @@
 var router = require("express").Router();
 var bodyParser = require('body-parser');
 var multer = require('multer');
-var mime = require('mime');
 var morgan = require('morgan');
-var session = require('express-session');
 
 var Article = require('./../model/article');
 var articleMapper = require("./../helper/mapper/articleMapper");
@@ -14,6 +12,7 @@ var articleService = require("./../service/articleService");
 var env = require('./../config/environnementconf');
 var security = require('./../config/security');
 var jwt = require('./../helper/tokenHelper');
+var Error = require('./../model/error');
 
 var log = require('./../config/log4js').getLogger('gonnetLogger');
 
@@ -26,7 +25,7 @@ var filename = '';
 
 var storage = multer.diskStorage({ //multers disk storage settings
     destination: function (req, file, cb) {
-        cb(null, './data/images')
+        cb(null, './data/images/articles')
     },
     filename: function (req, file, cb) {
         var datetimestamp = Date.now();
@@ -46,10 +45,12 @@ router.get('/:token' , function (req , res) {
         if(token)
         {
             var tokenVerification = jwt.verifyToken(token);
+            console.log(tokenVerification);
             if(tokenVerification)
             {
                 var promise = articleService.getAllArticles();
                 promise.then(function(articles){
+                    console.log(articles);
                     res.json({
                         success : true,
                         articles : articles
@@ -136,12 +137,12 @@ router.delete('/:token' , function (req , res) {
 });
 
 router.post('/:idArticle/:token' , upload.single('file') , function (req , res) {
-    log.info('Article PUT');
+    log.info('Article POST');
     try{
         var tokenVerification = jwt.verifyToken(req.params.token);
         if(tokenVerification)
         {
-            articleService.updateArticle(req , res);
+            articleService.createArticle(req , res);
         }
     }
     catch(error)
@@ -149,5 +150,43 @@ router.post('/:idArticle/:token' , upload.single('file') , function (req , res) 
         log.error(error);
     }
 });
+
+router.put('/:id/:token' , upload.single('file'), function (req, res) {
+    log.info('Article PUT');
+    try{
+        var tokenVerification = jwt.verifyToken(req.params.token);
+        var id = req.params.id;
+        if(tokenVerification)
+        {
+            var article = articleMapper.createArticle(req,  filename);
+            var promise = articleService.updateArticle(id , article);
+            promise.then(function (result) {
+                res.json({
+                    success: true,
+                    article : result
+                });
+                res.end();
+            }).catch(function (reason) {
+                res.json({
+                    success : false,
+                    error : Error.unknown_error
+                });
+                res.end();
+            })
+        }
+        else
+        {
+            res.json({
+                success : false,
+                error : Error.not_allowed
+            });
+            res.end();
+        }
+    }
+    catch(error)
+    {
+        log.error(error);
+    }
+})
 
 module.exports = router;

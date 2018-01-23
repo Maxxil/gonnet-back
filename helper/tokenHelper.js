@@ -5,7 +5,7 @@ var log = require('./../config/log4js').getLogger('gonnetLogger');
 
 module.exports = {
     verifyToken : function (token) {
-        jwt.verify(token, security.jwtSecret, function (err, decode) {
+        return jwt.verify(token, security.jwtSecret, function (err, decode) {
             if(err)
             {
                 log.error(err);
