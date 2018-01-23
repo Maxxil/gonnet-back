@@ -19,7 +19,7 @@ configLog.initialize();
 var log = configLog.getLogger('gonnetLogger');
 
 var corsOptions = {
-    origin: 'http://localhost:4200',
+    origin: 'http://localhost:4200, http://anthony-gonnet.com',
     allowedHeaders : 'Origin, X-Requested-With, Content-Type, Accept',
     credentials: true
 };
