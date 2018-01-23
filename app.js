@@ -46,7 +46,7 @@ try{
         ).exec();
         promise.then(function(data){
             console.log(data);
-            if(!data || data == undefined)
+            if(!data || data == undefined || data == [])
             {
                 var user = User({
                     username : 'admin',
