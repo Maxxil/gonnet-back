@@ -46,7 +46,7 @@ try{
         ).exec();
         promise.then(function(data){
             console.log(data);
-            if(!data || data == undefined || data == [])
+            if(!data || data == undefined || data.length == 0)
             {
                 console.log("Admin non trouvé");
                 var user = User({
