@@ -55,9 +55,8 @@ try{
                 });
                 var promise = user.save();
                 promise.then(function(data){
-                    console.log(data);
-                    assert.equal(data.username , "admin");
-                    assert.equal(data.password , "admin");
+                    console.log("Utilisateur admin créé");
+                    log.info("Utilisateur admin créé");
                 }).catch(function (error) {
                     console.log("Erreur lors de la creation de l'utilsiateur");
                     console.log(error);
