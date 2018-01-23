@@ -56,6 +56,10 @@ try{
                 promise.then(function(data){
                     assert.equal(data.username , "admin");
                     assert.equal(data.password , "admin");
+                }).catch(function (error) {
+                    console.log("Erreur lors de la creation de l'utilsiateur");
+                    console.log(error);
+                    log.error(error);
                 })
             }
         }).catch(function (error) {
