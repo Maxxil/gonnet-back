@@ -19,7 +19,7 @@ configLog.initialize();
 var log = configLog.getLogger('gonnetLogger');
 
 var corsOptions = {
-    origin: 'http://anthony-gonnet.com',
+    origin: ['http://anthony-gonnet.com','http://www.anthony-gonnet.com'],
     allowedHeaders : 'Origin, X-Requested-With, Content-Type, Accept',
     credentials: true
 };
