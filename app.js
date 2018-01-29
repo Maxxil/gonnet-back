@@ -19,7 +19,7 @@ configLog.initialize();
 var log = configLog.getLogger('gonnetLogger');
 
 var corsOptions = {
-    origin: ['http://anthony-gonnet.com','http://www.anthony-gonnet.com'],
+    origin: ['http://anthony-gonnet.com','http://www.anthony-gonnet.com', 'http://localhost:4200'],
     allowedHeaders : 'Origin, X-Requested-With, Content-Type, Accept',
     credentials: true
 };
@@ -45,7 +45,6 @@ try{
             }
         ).exec();
         promise.then(function(data){
-            console.log(data);
             if(!data || data == undefined || data.length == 0)
             {
                 console.log("Admin non trouvé");

@@ -29,5 +29,12 @@ module.exports = {
             console.log(project);
             return value.save()
         });
+    },
+    deleteProject: function(id) {
+        var project = Project.find({_id: id}).exec();
+        console.log(project);
+        var file = './../data/images/articles/'+project.image;
+        fs.unlink(file);
+        return project.remove().exec();
     }
 };

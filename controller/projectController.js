@@ -184,4 +184,32 @@ router.put('/:id/:token', upload.single('file'), function (req, res) {
     }
 });
 
+
+router.delete('/:id/:token' , function (req, res) {
+    var verifToken = jwt.verifyToken(req.params.token);
+    var id = req.params.id;
+    if(verifToken)
+    {
+        projectService.deleteProject(id).then(
+            function (result) {
+                res.json({
+                    success: true
+                });
+                res.end();
+            }
+        ).catch(function (error) {
+            res.json({success: false,
+            error: Error.unknown_error});
+            res.end();
+        });
+    }
+    else
+    {
+        res.json({
+            success: false,
+            error: Error.not_allowed
+        });
+        res.end()
+    }
+});
 module.exports = router;

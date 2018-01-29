@@ -3,22 +3,16 @@
  */
 Article = require("./../model/article");
 Mapper = require("./../helper/mapper/articleMapper");
+//var fs = require('fs');
 
 module.exports = {
+    //Création d'un article en base de donnée/
+    // L'article passé doit être mappé et de type article
     createArticle : function (article ) {
-        var promise = article.save();
-        promise.then(function(article){
-            if(article){
-                return "OK"
-            }
-            else
-            {
-                return "Error"
-            }
-        }).catch(function (error) {
-            return "Error: " + error;
-        });
+        return article.save();
     },
+    ///Mise à jour d'un articlé mappé parssé en paramètre
+    ///
     updateArticle : function (id, article) {
         return Article.findById(id, function (err, result) {
             if(result.title != article.title && article.title != '' && article.title != undefined)
@@ -36,14 +30,18 @@ module.exports = {
             return result.save();
         })
     },
-    deleteArticle : function (req , res) {
-        return Article.remove({
-            _id : req.body.id
-        }).exec(function (success) {
-            res.send("OK delete article");
-        }, function (error) {
-            res.send("ERROR delete article " + error);
+    deleteArticle : function (id) {
+        return Article.find({
+            _id : id
+        }).exec().then(function (article) {
+            //console.log(article);
+            /*var file = './../data/images/articles/'+article.image;
+            fs.unlink(file);
+            return article.remove().exec();*/
+        }).catch(function (error) {
+            return error;
         });
+
     },
     getAllArticles : function () {
         return Article.find({}).exec();

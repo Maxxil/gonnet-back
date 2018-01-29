@@ -107,47 +107,103 @@ router.get('/:idArticle/:token' , function (req , res) {
     }
 });
 
-router.put('/:token' ,upload.single('file'), function (req , res) {
-    log.info('Article POST');
+router.post('/:token' ,upload.single('file'), function (req , res) {
+    log.info('Article add');
+    console.log('Article add');
     try {
         if(req.file != undefined)
         {
             var tokenVerification = jwt.verifyToken(req.params.token);
             if(tokenVerification)
             {
+                console.log("Création de l'article");
                 var article = articleMapper.createArticle(req, filename);
-                var result = articleService.createArticle(article);
-                res.send(result);
+                console.log("Enregistrement de l'article");
+                var promise = articleService.createArticle(article);
+                promise.then(function (success) {
+                    console.log("Article ajouté avec succes");
+                    log.info("L'aticle " + success._id + " a été ajouté");
+                    res.json({
+                        success: true
+                    });
+                    res.end();
+                }).catch(function (reason) {
+                    console.log("Probleme lors de l'ajout");
+                    console.log(reason);
+                    log.error(reason);
+                    res.json({
+                        success: false,
+                        error: Error.unknown_error
+                    });
+                    res.end();
+                });
+            }
+            else
+            {
+                console.log("Non autorisé");
+                res.json({
+                    success: false,
+                    error: Error.not_allowed
+                });
                 res.end();
             }
         }
-    }
-    catch(error)
-    {
-        log.error(error);
-    }
-});
-
-router.delete('/:token' , function (req , res) {
-    var tokenVerification = jwt.verifyToken(req.params.token);
-    if(tokenVerification)
-    {
-        articleService.deleteArticle(req, res);
-    }
-});
-
-router.post('/:idArticle/:token' , upload.single('file') , function (req , res) {
-    log.info('Article POST');
-    try{
-        var tokenVerification = jwt.verifyToken(req.params.token);
-        if(tokenVerification)
+        else
         {
-            articleService.createArticle(req , res);
+            console.log("Aucun image récupéré");
+
+            res.json({
+                success: false,
+                error: Error.file_not_uploaded
+            });
+            res.end();
         }
     }
     catch(error)
     {
+        console.log("Erreur");
         log.error(error);
+        res.json({
+            success: false,
+            error: Error.unknown_error
+        });
+        res.end();
+    }
+});
+
+router.delete('/:id/:token' , function (req , res) {
+    log.debug('Delete article: ' + req.params.id);
+    var tokenVerification = jwt.verifyToken(req.params.token);
+    var id = req.params.id;
+    if(tokenVerification)
+    {
+        articleService.deleteArticle(id)
+            .then(function (result) {
+                console.log('OK');
+                res.json({
+                    success: true
+                });
+                res.end();
+            })
+            .catch(function (error) {
+                console.log('KO');
+                console.log(error);
+                log.error(error);
+                res.json({
+                    success: false,
+                    error : Error.unknown_error
+                });
+                res.end();
+            })
+    }
+    else {
+        console.log("Not allowed");
+        log.error("Token non autorisé: " + req.params.token);
+        res.json({
+            success: false,
+            error : Error.unknown_error
+        });
+        res.end();
     }
 });
 
