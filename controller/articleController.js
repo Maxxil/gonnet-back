@@ -5,6 +5,7 @@ var router = require("express").Router();
 var bodyParser = require('body-parser');
 var multer = require('multer');
 var morgan = require('morgan');
+var fs = require('fs');
 
 var Article = require('./../model/article');
 var articleMapper = require("./../helper/mapper/articleMapper");
@@ -36,6 +37,18 @@ var storage = multer.diskStorage({ //multers disk storage settings
 
 var upload = multer({ //multer settings
     storage: storage
+});
+
+router.get('/', function (req, res) {
+    var promise = articleService.getAllArticles();
+    promise.then(function(articles){
+        console.log(articles);
+        res.json({
+            success : true,
+            articles : articles
+        });
+        res.end();
+    });
 });
 
 router.get('/:token' , function (req , res) {
@@ -180,10 +193,25 @@ router.delete('/:id/:token' , function (req , res) {
         articleService.deleteArticle(id)
             .then(function (result) {
                 console.log('OK');
+                /*fs.unlink('./../data/images/article/'+result.image)
+                    .then(function (result) {
+                        res.json({
+                            success: true
+                        });
+                        res.end();
+                    })
+                    .catch(function (error) {
+                        res.json({
+                            success: false,
+                            error: Error.file_cannot_be_delete
+                        })
+                    });*/
+
                 res.json({
                     success: true
                 });
                 res.end();
+
             })
             .catch(function (error) {
                 console.log('KO');

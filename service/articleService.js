@@ -3,7 +3,6 @@
  */
 Article = require("./../model/article");
 Mapper = require("./../helper/mapper/articleMapper");
-//var fs = require('fs');
 
 module.exports = {
     //Création d'un article en base de donnée/
@@ -31,17 +30,9 @@ module.exports = {
         })
     },
     deleteArticle : function (id) {
-        return Article.find({
+        return  Article.remove({
             _id : id
-        }).exec().then(function (article) {
-            //console.log(article);
-            /*var file = './../data/images/articles/'+article.image;
-            fs.unlink(file);
-            return article.remove().exec();*/
-        }).catch(function (error) {
-            return error;
-        });
-
+        }).exec();
     },
     getAllArticles : function () {
         return Article.find({}).exec();

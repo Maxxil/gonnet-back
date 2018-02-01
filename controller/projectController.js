@@ -28,6 +28,27 @@ var upload = multer({ //multer settings
     storage: storage
 });
 
+router.get('/', function (req, res) {
+    projectService.getAllProjects()
+        .then(function (success) {
+            console.log(success);
+            res.json({
+                success: true,
+                projects : success,
+                error : 0
+            });
+            res.end();
+        })
+        .catch(function (error) {
+            log.error(error);
+            res.json({
+                success: false,
+                error : Error.unknown_error
+            });
+            res.end();
+        })
+});
+
 router.get('/:token', function (req, res) {
     log.info("GET project");
     var token = req.params.token;
@@ -212,4 +233,6 @@ router.delete('/:id/:token' , function (req, res) {
         res.end()
     }
 });
+
+
 module.exports = router;

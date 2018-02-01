@@ -31,10 +31,6 @@ module.exports = {
         });
     },
     deleteProject: function(id) {
-        var project = Project.find({_id: id}).exec();
-        console.log(project);
-        var file = './../data/images/articles/'+project.image;
-        fs.unlink(file);
-        return project.remove().exec();
+        return Project.remove({_id: id}).exec();
     }
 };

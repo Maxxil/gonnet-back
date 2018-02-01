@@ -18,8 +18,15 @@ configLog.initialize();
 
 var log = configLog.getLogger('gonnetLogger');
 
+var corsOrigin = [
+    'http://anthony-gonnet.com',
+    'http://www.anthony-gonnet.com',
+    'http://localhost:4200',
+    'http://localhost:63342'
+];
+
 var corsOptions = {
-    origin: ['http://anthony-gonnet.com','http://www.anthony-gonnet.com', 'http://localhost:4200'],
+    origin: corsOrigin,
     allowedHeaders : 'Origin, X-Requested-With, Content-Type, Accept',
     credentials: true
 };
