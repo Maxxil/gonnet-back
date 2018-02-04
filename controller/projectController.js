@@ -156,7 +156,6 @@ router.post('/:token', upload.single('file'),function (req , res) {
     log.info('Project POST');
     var token = req.params.token;
     var tokenVerification = jwt.verifyToken(token);
-    console.log(req.body.typeProject);
     if(tokenVerification)
     {
         if(req.file != undefined)

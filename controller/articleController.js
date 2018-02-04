@@ -40,14 +40,18 @@ var upload = multer({ //multer settings
 });
 
 router.get('/', function (req, res) {
+    log.debug("Tentative de récupération de tous les articles sans token");
     var promise = articleService.getAllArticles();
     promise.then(function(articles){
-        console.log(articles);
+        log.debug('Récupération des articles réussies');
         res.json({
             success : true,
             articles : articles
         });
         res.end();
+    }).catch(function (error) {
+        log.debug("Impossible de récupérer tous les articles - Sans token");
+        log.error(error);
     });
 });
 
@@ -58,9 +62,9 @@ router.get('/:token' , function (req , res) {
         if(token)
         {
             var tokenVerification = jwt.verifyToken(token);
-            console.log(tokenVerification);
             if(tokenVerification)
             {
+                log.info("Autorisation de récupération de tous les articles - Avec token");
                 var promise = articleService.getAllArticles();
                 promise.then(function(articles){
                     console.log(articles);
@@ -72,6 +76,7 @@ router.get('/:token' , function (req , res) {
                 });
             }
             else{
+                log.info('Le token: ' + token + " n'est pas autorisé. a récupérer tous les articles - Avec token");
                 res.json({
                     success : false
                 });
@@ -86,7 +91,7 @@ router.get('/:token' , function (req , res) {
 });
 
 router.get('/:idArticle/:token' , function (req , res) {
-    log.info('Article get with params');
+    log.info("Récupération de l'article "+ req.body.id+ " - Avec token");
     try{
         var token = req.params.token;
         if(token)
@@ -94,8 +99,10 @@ router.get('/:idArticle/:token' , function (req , res) {
             var tokenVerification = jwt.verifyToken(token);
             if(tokenVerification)
             {
+                log.info("Token valide pour récupération de l'article");
                 var promise = articleService.getArticle(req.params.idArticle);
                 promise.then(function (article) {
+                    log.info("Récupération de l'article réussie ");
                     console.log(article);
                     res.json({
                         success : true,
@@ -121,28 +128,27 @@ router.get('/:idArticle/:token' , function (req , res) {
 });
 
 router.post('/:token' ,upload.single('file'), function (req , res) {
-    log.info('Article add');
-    console.log('Article add');
+    log.info("Ajout d'article - Avec token");
     try {
+        log.info("Tentative d'ajout d'article.");
         if(req.file != undefined)
         {
             var tokenVerification = jwt.verifyToken(req.params.token);
             if(tokenVerification)
             {
-                console.log("Création de l'article");
+                log.info("Token connu - Ajout autorisé");
+                log.info("Création de l'article");
                 var article = articleMapper.createArticle(req, filename);
-                console.log("Enregistrement de l'article");
+                log.info("Enregistrement de l'article");
                 var promise = articleService.createArticle(article);
                 promise.then(function (success) {
-                    console.log("Article ajouté avec succes");
                     log.info("L'aticle " + success._id + " a été ajouté");
                     res.json({
                         success: true
                     });
                     res.end();
                 }).catch(function (reason) {
-                    console.log("Probleme lors de l'ajout");
-                    console.log(reason);
+                    log.info("Probleme lors de l'ajout");
                     log.error(reason);
                     res.json({
                         success: false,
@@ -153,7 +159,7 @@ router.post('/:token' ,upload.single('file'), function (req , res) {
             }
             else
             {
-                console.log("Non autorisé");
+                log.info("Ajout non autorisé - Token non connu");
                 res.json({
                     success: false,
                     error: Error.not_allowed
@@ -163,7 +169,7 @@ router.post('/:token' ,upload.single('file'), function (req , res) {
         }
         else
         {
-            console.log("Aucun image récupéré");
+            log.info("Aucun image récupéré");
 
             res.json({
                 success: false,
@@ -174,7 +180,7 @@ router.post('/:token' ,upload.single('file'), function (req , res) {
     }
     catch(error)
     {
-        console.log("Erreur");
+        log.error("Erreur lors de l'ajout d'un article");
         log.error(error);
         res.json({
             success: false,
@@ -190,9 +196,11 @@ router.delete('/:id/:token' , function (req , res) {
     var id = req.params.id;
     if(tokenVerification)
     {
+        log.info("Token connu - Ajout autorisé");
+        log.info("Tentative de suppression de l'article: " + id);
         articleService.deleteArticle(id)
             .then(function (result) {
-                console.log('OK');
+                log.info('Suppression effectuée');
                 /*fs.unlink('./../data/images/article/'+result.image)
                     .then(function (result) {
                         res.json({
@@ -214,8 +222,7 @@ router.delete('/:id/:token' , function (req , res) {
 
             })
             .catch(function (error) {
-                console.log('KO');
-                console.log(error);
+                log.info("Une erreur s'est produite lors de la suppression de l'article: " + id);
                 log.error(error);
                 res.json({
                     success: false,
@@ -236,21 +243,25 @@ router.delete('/:id/:token' , function (req , res) {
 });
 
 router.put('/:id/:token' , upload.single('file'), function (req, res) {
-    log.info('Article PUT');
+    log.info("Mise a jour d'un article - Avec token");
     try{
         var tokenVerification = jwt.verifyToken(req.params.token);
         var id = req.params.id;
         if(tokenVerification)
         {
+            log.info("Autorisation de mise a jour d'un article - Avec token");
             var article = articleMapper.createArticle(req,  filename);
             var promise = articleService.updateArticle(id , article);
             promise.then(function (result) {
+                log.info("Article: " + id + " mis à jour correctement");
                 res.json({
                     success: true,
                     article : result
                 });
                 res.end();
             }).catch(function (reason) {
+                log.info("Un probleme s'est produit lors de la mise à jour de l'article: " + id);
+                log.error(reason);
                 res.json({
                     success : false,
                     error : Error.unknown_error
@@ -260,6 +271,7 @@ router.put('/:id/:token' , upload.single('file'), function (req, res) {
         }
         else
         {
+            log.info("Token non autorisé");
             res.json({
                 success : false,
                 error : Error.not_allowed
@@ -269,8 +281,9 @@ router.put('/:id/:token' , upload.single('file'), function (req, res) {
     }
     catch(error)
     {
+        log.info("Une erreur s'est produite.");
         log.error(error);
     }
-})
+});
 
 module.exports = router;
