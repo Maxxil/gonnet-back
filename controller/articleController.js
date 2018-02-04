@@ -56,7 +56,7 @@ router.get('/', function (req, res) {
 });
 
 router.get('/:token' , function (req , res) {
-    log.info('Article get');
+    log.info("Récupération d'un article via un token");
     try{
         var token = req.params.token;
         if(token)
