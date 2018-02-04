@@ -1,5 +1,6 @@
 
 var Project = require('./../model/project');
+var typeProjectEnum = require('./../helper/enum/typeProjectEnum');
 
 module.exports = {
     addProject : function (project) {
@@ -10,6 +11,16 @@ module.exports = {
     },
     getProject : function (id) {
         return Project.find({_id : id}).exec();
+    },
+    getContributionProjects: function () {
+      return Project
+          .find({typeProject: typeProjectEnum.CONTRIBUTION })
+          .exec();
+    },
+    getPersonnalProjects : function () {
+        return Project
+            .find({typeProject: typeProjectEnum.PROJET_PERSO })
+            .exec();
     },
     updateProject : function (id, project) {
         console.log('update');
@@ -26,7 +37,7 @@ module.exports = {
             {
                 value.description = project.description;
             }
-            console.log(project);
+            value.typeProjet = project.typeProjet;
             return value.save()
         });
     },

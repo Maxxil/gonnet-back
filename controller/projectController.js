@@ -53,12 +53,10 @@ router.get('/:token', function (req, res) {
     log.info("GET project");
     var token = req.params.token;
     var tokenVerification = jwt.verifyToken(token);
-    console.log(tokenVerification);
     if(tokenVerification)
     {
         projectService.getAllProjects()
             .then(function (success) {
-                console.log(success);
                 res.json({
                     success: true,
                     projects : success,
@@ -119,11 +117,46 @@ router.get('/:id/:token', function (req, res) {
     }
 });
 
+router.get('/projet_perso' , function (req, res) {
+    var promise = projectService.getPersonnalProjects();
+    promise.then(function (result) {
+        res.json({
+            success: true,
+            projects: result
+        });
+        res.end();
+    }).catch(function (error) {
+        res.json({
+            success: false,
+            error: Error.unknown_error
+        });
+        res.end();
+    })
+});
+
+router.get('/contribution' , function (req, res) {
+    var promise = projectService.getContributionProjects();
+    promise.then(function (result) {
+        res.json({
+            success: true,
+            projects: result
+        });
+        res.end();
+    }).catch(function (error) {
+        res.json({
+            success: false,
+            error: Error.unknown_error
+        });
+        res.end();
+    })
+});
+
 router.post('/:token', upload.single('file'),function (req , res) {
 
     log.info('Project POST');
     var token = req.params.token;
     var tokenVerification = jwt.verifyToken(token);
+    console.log(req.body.typeProject);
     if(tokenVerification)
     {
         if(req.file != undefined)
@@ -131,9 +164,11 @@ router.post('/:token', upload.single('file'),function (req , res) {
             var project = projectMapper.createProject(
                 req.body.title,
                 filename,
-                req.body.text
+                req.body.text,
+                req.body.typeProject
             );
-
+            console.log('Projet a ajouter: ');
+            console.log(project);
             var promise = projectService.addProject(project);
             promise.then(function (success) {
                 console.log('Success');
@@ -173,13 +208,14 @@ router.post('/:token', upload.single('file'),function (req , res) {
 router.put('/:id/:token', upload.single('file'), function (req, res) {
     var token = req.params.token;
     var id = req.params.id;
-    console.log(req.body);
     var tokenVerification = jwt.verifyToken(token);
     if(tokenVerification)
     {
-        var project = projectMapper.createProject(req.body.title, filename, req.body.description);
+        var project = projectMapper.createProject(req.body.title, filename, req.body.description, req.body.typeProject);
         var promise = projectService.updateProject(id, project);
-        promise.then(function (success) {
+        promise.then(function (success)
+            {
+                console.log(success);
                 res.json({
                     success: true,
                     project : success

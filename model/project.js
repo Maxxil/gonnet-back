@@ -3,11 +3,13 @@
  */
 var mongoose = require("mongoose");
 var db = require("./../config/db");
+var typeProjectEnum = require('./../helper/enum/typeProjectEnum');
 
 var project = new mongoose.Schema({
     title : 'String',
     image : 'String',
-    description : 'String'
+    description : 'String',
+    typeProjet : 'Number'
 });
 
 module.exports = db.model('Project' , project);
