@@ -14,12 +14,12 @@ module.exports = {
     },
     getContributionProjects: function () {
       return Project
-          .find({typeProject: typeProjectEnum.CONTRIBUTION })
+          .find({typeProjet: typeProjectEnum.CONTRIBUTION })
           .exec();
     },
     getPersonnalProjects : function () {
         return Project
-            .find({typeProject: typeProjectEnum.PROJET_PERSO })
+            .find({typeProjet: typeProjectEnum.PROJET_PERSO })
             .exec();
     },
     updateProject : function (id, project) {

@@ -49,6 +49,55 @@ router.get('/', function (req, res) {
         })
 });
 
+router.get('/constribution' , function (req, res) {
+    //log.info("Récupération des projets contributions");
+    console.log("Contribution");
+    //res.end("coucou");
+    /*var promise = projectService.getContributionProjects();
+    promise.then(function (result) {
+        console.log("Contribution");
+        console.log(result);
+        res.json({
+            success: true,
+            projects: result
+        });
+        res.end();
+    }).catch(function (error) {
+        console.log(error);
+        log.info("Erreur lors de la récupérations des contributions");
+        log.error(error);
+        res.json({
+            success: false,
+            error: Error.unknown_error
+        });
+        res.end();
+    })*/
+});
+
+router.get('/personal' , function (req, res) {
+    log.info("Récupération des projets personnels");
+    console.log("Personnel");
+    var promise = projectService.getPersonnalProjects();
+    promise.then(function (result) {
+        console.log("Perso");
+        console.log(result);
+        res.json({
+            success: true,
+            projects: result
+        });
+        res.end();
+    }).catch(function (error) {
+        console.log(error);
+        log.info("Erreur lors de la récupérations des contributions");
+        log.error(error);
+        res.json({
+            success: false,
+            error: Error.unknown_error
+        });
+        res.end();
+    })
+});
+
 router.get('/:token', function (req, res) {
     log.info("GET project");
     var token = req.params.token;
@@ -115,48 +164,6 @@ router.get('/:id/:token', function (req, res) {
         });
         res.end();
     }
-});
-
-router.get('/contribution' , function (req, res) {
-    log.info("Récupération des projets contributions");
-    var promise = projectService.getContributionProjects();
-    promise.then(function (result) {
-        res.json({
-            success: true,
-            projects: result
-        });
-        res.end();
-    }).catch(function (error) {
-        console.log(error);
-        log.info("Erreur lors de la récupérations des contributions");
-        log.error(error);
-        res.json({
-            success: false,
-            error: Error.unknown_error
-        });
-        res.end();
-    })
-});
-
-router.get('/personal' , function (req, res) {
-    log.info("Récupération des projets personnels");
-    var promise = projectService.getPersonnalProjects();
-    promise.then(function (result) {
-        res.json({
-            success: true,
-            projects: result
-        });
-        res.end();
-    }).catch(function (error) {
-        console.log(error);
-        log.info("Erreur lors de la récupérations des contributions");
-        log.error(error);
-        res.json({
-            success: false,
-            error: Error.unknown_error
-        });
-        res.end();
-    })
 });
 
 router.post('/:token', upload.single('file'),function (req , res) {

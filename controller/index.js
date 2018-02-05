@@ -10,5 +10,6 @@ router.use('/image' , require('./imageController'));
 router.use('/signin' , require('./signinController'));
 router.use('/mail' , require('./mailController'));
 router.use('/project', require('./projectController'));
+router.use('/projectByType' , require('./projectByTypeController'));
 
 module.exports = router;
