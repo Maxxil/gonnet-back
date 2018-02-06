@@ -2,12 +2,13 @@ var Project = require('./../../model/project');
 var typeProjectEnum = require('./../../helper/enum/typeProjectEnum');
 
 module.exports = {
-    createProject: function (title, image, description, typeProject) {
+    createProject: function (body, filename) {
         return new Project({
-            title: title,
-            image: image,
-            description: description,
-            typeProjet: parseInt(typeProject)
+            title: body.title,
+            image: filename,
+            description: body.text,
+            link: body.link,
+            typeProjet: parseInt(body.typeProject)
         });
     }
 };

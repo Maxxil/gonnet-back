@@ -1,11 +1,11 @@
 var User = require('./../../model/user')
 
 module.exports = {
-    createUser : function (email , password , salt) {
+    createUser : function (body) {
         var user = new User({
-            email : email,
-            password : password,
-            salt : salt
+            email : body.email,
+            password : body.password,
+            salt : body.salt
         });
         return user;
     }

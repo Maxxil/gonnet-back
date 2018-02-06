@@ -8,7 +8,8 @@ var article = new mongoose.Schema({
         title : 'String',
         text : 'String',
         date : 'Date',
-        image : 'String'
+        image : 'String',
+        link: 'String'
     });
 
 module.exports = db.model('Article' , article);

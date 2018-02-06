@@ -49,55 +49,6 @@ router.get('/', function (req, res) {
         })
 });
 
-router.get('/constribution' , function (req, res) {
-    //log.info("Récupération des projets contributions");
-    console.log("Contribution");
-    //res.end("coucou");
-    /*var promise = projectService.getContributionProjects();
-    promise.then(function (result) {
-        console.log("Contribution");
-        console.log(result);
-        res.json({
-            success: true,
-            projects: result
-        });
-        res.end();
-    }).catch(function (error) {
-        console.log(error);
-        log.info("Erreur lors de la récupérations des contributions");
-        log.error(error);
-        res.json({
-            success: false,
-            error: Error.unknown_error
-        });
-        res.end();
-    })*/
-});
-
-router.get('/personal' , function (req, res) {
-    log.info("Récupération des projets personnels");
-    console.log("Personnel");
-    var promise = projectService.getPersonnalProjects();
-    promise.then(function (result) {
-        console.log("Perso");
-        console.log(result);
-        res.json({
-            success: true,
-            projects: result
-        });
-        res.end();
-    }).catch(function (error) {
-        console.log(error);
-        log.info("Erreur lors de la récupérations des contributions");
-        log.error(error);
-        res.json({
-            success: false,
-            error: Error.unknown_error
-        });
-        res.end();
-    })
-});
-
 router.get('/:token', function (req, res) {
     log.info("GET project");
     var token = req.params.token;
@@ -176,10 +127,8 @@ router.post('/:token', upload.single('file'),function (req , res) {
         if(req.file != undefined)
         {
             var project = projectMapper.createProject(
-                req.body.title,
-                filename,
-                req.body.text,
-                req.body.typeProject
+                req.body,
+                filename
             );
             console.log('Projet a ajouter: ');
             console.log(project);
@@ -225,7 +174,7 @@ router.put('/:id/:token', upload.single('file'), function (req, res) {
     var tokenVerification = jwt.verifyToken(token);
     if(tokenVerification)
     {
-        var project = projectMapper.createProject(req.body.title, filename, req.body.description, req.body.typeProject);
+        var project = projectMapper.createProject(req.body, filename);
         var promise = projectService.updateProject(id, project);
         promise.then(function (success)
             {

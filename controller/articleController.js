@@ -106,7 +106,7 @@ router.get('/:idArticle/:token' , function (req , res) {
                     console.log(article);
                     res.json({
                         success : true,
-                        article : article
+                        articles : article
                     });
                     res.end();
                 }).catch(function (error) {
@@ -138,7 +138,7 @@ router.post('/:token' ,upload.single('file'), function (req , res) {
             {
                 log.info("Token connu - Ajout autorisé");
                 log.info("Création de l'article");
-                var article = articleMapper.createArticle(req, filename);
+                var article = articleMapper.createArticle(req.body, filename);
                 log.info("Enregistrement de l'article");
                 var promise = articleService.createArticle(article);
                 promise.then(function (success) {
@@ -250,13 +250,13 @@ router.put('/:id/:token' , upload.single('file'), function (req, res) {
         if(tokenVerification)
         {
             log.info("Autorisation de mise a jour d'un article - Avec token");
-            var article = articleMapper.createArticle(req,  filename);
+            var article = articleMapper.createArticle(req.body,  filename);
             var promise = articleService.updateArticle(id , article);
             promise.then(function (result) {
                 log.info("Article: " + id + " mis à jour correctement");
                 res.json({
                     success: true,
-                    article : result
+                    articles : result
                 });
                 res.end();
             }).catch(function (reason) {
