@@ -26,6 +26,10 @@ module.exports = {
             {
                 result.text = article.text;
             }
+            if(result.link != article.link && article.link != '' && article.link != undefined)
+            {
+                result.link = article.link;
+            }
             return result.save();
         })
     },

@@ -37,6 +37,10 @@ module.exports = {
             {
                 value.description = project.description;
             }
+            if(value.link != project.link && project.link != '' && project.link != undefined)
+            {
+                value.link = project.link;
+            }
             value.typeProjet = project.typeProjet;
             return value.save()
         });
