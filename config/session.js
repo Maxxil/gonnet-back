@@ -1,7 +1,6 @@
-var log4js = require('log4js');
 var session = require('express-session');
-
-
+var Error = require('./../model/error');
+var log = require('./log4js').getLogger('gonnetLogger');
 module.exports = {
     initialize : function (app) {
         app.use(session({
@@ -14,5 +13,27 @@ module.exports = {
             //mis en place aussi
             //,secure : true
         }));
+    },
+    setSessionVariables : function (req, res) {
+        var session = req.session;
+        session.token = req.body.token;
+    },
+    sessionManagement : function (req) {
+        var session = req.session;
+        if(session.token)
+        {
+            res.json({
+                success: false,
+                error : Error.not_allowed
+            });
+            res.end();
+        }
+    },
+    sessionDestroy : function (req, res) {
+        var session = req.session;
+        session.destroy(function (err) {
+            log.info("Probleme lors de la destruction de la session");
+            log.error(err);
+        })
     }
 };

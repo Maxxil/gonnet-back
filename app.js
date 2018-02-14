@@ -4,6 +4,7 @@
 var express = require("express");
 var mongoose = require("mongoose");
 var cors = require("cors");
+var https = require("https");
 
 var app = express();
 
@@ -11,6 +12,7 @@ var User = require("./model/user");
 var configLog = require("./config/log4js");
 var configSession = require("./config/session");
 var envConfig = require("./config/environnementconf");
+var httpsConfig = require("./config/https");
 
 var port = envConfig.getListeningPort();
 
@@ -41,7 +43,11 @@ configSession.initialize(app);
 
 
 try{
-    app.listen(port, function(){
+    https.createServer(httpsConfig.options, app)
+        .listen(port, function () {
+            console.log("API is running on port: " + port);
+        });
+    /*app.listen(port, function(){
         console.log("API is running on port: " + port);
         log.info('API have been launched');
         mongoose.Promise = global.Promise;
@@ -78,9 +84,10 @@ try{
             console.log(error);
             log.error(error);
         })
-    });
+    });*/
 }
 catch(error)
 {
+    console.log(error);
     log.fatal(error);
 }
