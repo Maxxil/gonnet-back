@@ -22,7 +22,9 @@ var log = configLog.getLogger('gonnetLogger');
 
 var corsOrigin = [
     'http://anthony-gonnet.com',
+    'https://anthony-gonnet.com',
     'http://www.anthony-gonnet.com',
+    'https://www.anthony-gonnet.com',
     'http://localhost:4200',
     'http://localhost:63342'
 ];
