@@ -30,7 +30,9 @@ var domains = [
     'http://www.anthony-gonnet.com',
     'https://www.anthony-gonnet.com',
     'http://localhost:4200',
-    'http://localhost:63342'
+    'http://localhost:63342',
+    'http://www.gonnet.ovh/',
+    'https://www.gonnet.ovh/'
 ];
 
 var corsOptions = {
@@ -49,6 +51,9 @@ configSession.initialize(app);
 
 
 try{
+    https.createServer(require('./config/https').options, app).listen(port, function () {
+        console.log("Server Launched");
+    });
     /*
     var lex = LEX.create({
         server: 'staging',
@@ -68,7 +73,7 @@ try{
     })).listen(80);
     https.createServer(lex.httpsOptions, LEX.createAcmeResponder(lex, app)).listen(4444);
     */
-    app.listen(port, function(){
+    /*app.listen(port, function(){
         console.log("API is running on port: " + port);
         log.info('API have been launched');
         mongoose.Promise = global.Promise;
@@ -105,7 +110,7 @@ try{
             console.log(error);
             log.error(error);
         })
-    });
+    });*/
 }
 catch(error)
 {

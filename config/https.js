@@ -1,8 +1,8 @@
 var https = require('https');
 var fs = require('fs');
 
-var privateKey = fs.readFileSync('./data/certificates/key.pem');
-var certificate = fs.readFileSync('./data/certificates/cert.pem');
+var privateKey = fs.readFileSync('./data/certificates/new/private.key');
+var certificate = fs.readFileSync('./data/certificates/new/certificate.crt');
 const options = {
     key: privateKey,
     cert : certificate
