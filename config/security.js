@@ -1,3 +1,5 @@
+var https = require('letsencrypt-express');
+
 module.exports = {
     jwtSecret : 'ilovescotchyscotch',
     jwtPayload : {
@@ -11,5 +13,15 @@ module.exports = {
         this.jwtSecret.name = user.name;
         this.jwtSecret.id = user._id;
         return this.jwtSecret;
+    },
+    generateSsl : function (domains, app) {
+        var res = https.create({
+            server : 'staging',
+            email : 'massilkadi@hotmail.fr',
+            agreeTos: true,
+            approveDomains : domains,
+            app : app
+        });
+        return res;
     }
 };

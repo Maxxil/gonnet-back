@@ -4,8 +4,6 @@
 var express = require("express");
 var mongoose = require("mongoose");
 var cors = require("cors");
-var https = require("https");
-
 var app = express();
 
 var User = require("./model/user");
@@ -14,13 +12,19 @@ var configSession = require("./config/session");
 var envConfig = require("./config/environnementconf");
 var httpsConfig = require("./config/https");
 
+var http = require('http');
+var https = require('https');
+var LEX = require('letsencrypt-express');
+
+var httpsLEX = require("./config/security");
+
 var port = envConfig.getListeningPort();
 
 configLog.initialize();
 
 var log = configLog.getLogger('gonnetLogger');
 
-var corsOrigin = [
+var domains = [
     'http://anthony-gonnet.com',
     'https://anthony-gonnet.com',
     'http://www.anthony-gonnet.com',
@@ -30,7 +34,7 @@ var corsOrigin = [
 ];
 
 var corsOptions = {
-    origin: corsOrigin,
+    origin: domains,
     allowedHeaders : 'Origin, X-Requested-With, Content-Type, Accept',
     credentials: true
 };
@@ -45,11 +49,26 @@ configSession.initialize(app);
 
 
 try{
-    https.createServer(httpsConfig.options, app)
-        .listen(port, function () {
-            console.log("API is running on port: " + port);
-        });
-    /*app.listen(port, function(){
+    /*
+    var lex = LEX.create({
+        server: 'staging',
+        configDir: require('os').homedir() + '/letsencrypt/etc',
+        approveRegistration: function (hostname, cb) {
+            cb(null,{
+                domains: [hostname],
+                email: 'massilkadi@hotmail.fr',
+                agreeTos: true
+            });
+        }
+    });
+    http.createServer(LEX.createAcmeResponder(lex, function redirectHttps(req, res) {
+        res.setHeader('Location', 'https://' + req.headers.host+ req.url);
+        res.statusCode = 302;
+        res.end("Coucou");
+    })).listen(80);
+    https.createServer(lex.httpsOptions, LEX.createAcmeResponder(lex, app)).listen(4444);
+    */
+    app.listen(port, function(){
         console.log("API is running on port: " + port);
         log.info('API have been launched');
         mongoose.Promise = global.Promise;
@@ -86,7 +105,7 @@ try{
             console.log(error);
             log.error(error);
         })
-    });*/
+    });
 }
 catch(error)
 {
