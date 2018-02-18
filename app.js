@@ -31,8 +31,8 @@ var domains = [
     'https://www.anthony-gonnet.com',
     'http://localhost:4200',
     'http://localhost:63342',
-    'http://www.gonnet.ovh/',
-    'https://www.gonnet.ovh/'
+    'http://www.api.gonnet.ovh/',
+    'https://www.api.gonnet.ovh/'
 ];
 
 var corsOptions = {
