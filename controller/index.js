@@ -11,5 +11,8 @@ router.use('/signin' , require('./signinController'));
 router.use('/mail' , require('./mailController'));
 router.use('/project', require('./projectController'));
 router.use('/projectByType' , require('./projectByTypeController'));
+router.all('*', function (req, res) {
+    res.end('Home page');
+});
 
 module.exports = router;
