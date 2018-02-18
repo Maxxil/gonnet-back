@@ -4,7 +4,6 @@
 var express = require("express");
 var mongoose = require("mongoose");
 var cors = require("cors");
-var favicon = require('serve-favicon');
 var app = express();
 
 var User = require("./model/user");
@@ -42,7 +41,6 @@ var corsOptions = {
     credentials: true
 };
 app.use(cors(corsOptions));
-app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use('/project/image' , express.static(__dirname + '/data/images/projects'));
 app.use('/article/image' , express.static(__dirname + '/data/images/articles'));
 
@@ -52,7 +50,7 @@ configSession.initialize(app);
 
 
 try{
-    https.createServer(require('./config/https').options, app).listen(port, function () {
+    https.createServer(require('./config/https').options, app).listen(port, 'localhost', function () {
         console.log("Server Launched: " + port);
         log.info('API have been launched on ' + port);
     });
