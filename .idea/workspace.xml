@@ -40,8 +40,8 @@
       <file leaf-file-name="app.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="53" column="5" lean-forward="false" selection-start-line="53" selection-start-column="5" selection-end-line="53" selection-end-column="5" />
+            <state relative-caret-position="1152">
+              <caret line="93" column="9" lean-forward="true" selection-start-line="93" selection-start-column="9" selection-end-line="93" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -52,7 +52,11 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="42">
               <caret line="2" column="4" lean-forward="false" selection-start-line="2" selection-start-column="4" selection-end-line="2" selection-end-column="4" />
-              <folding />
+              <folding>
+                <marker date="1518967554411" expanded="true" signature="16:222" ph="{&quot;environnement&quot;: 'PROD'...}" />
+                <marker date="1518967554411" expanded="true" signature="81:220" ph="{...}" />
+                <marker date="1518967554411" expanded="true" signature="180:214" ph="{...}" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -467,12 +471,12 @@
       <workItem from="1517133749397" duration="13507000" />
       <workItem from="1517736324427" duration="12948000" />
       <workItem from="1518632285593" duration="6123000" />
-      <workItem from="1518878425834" duration="5471000" />
+      <workItem from="1518878425834" duration="5728000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="160783000" />
+    <option name="totallyTimeSpent" value="161040000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -837,7 +841,11 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="42">
           <caret line="2" column="4" lean-forward="false" selection-start-line="2" selection-start-column="4" selection-end-line="2" selection-end-column="4" />
-          <folding />
+          <folding>
+            <marker date="1518967554411" expanded="true" signature="16:222" ph="{&quot;environnement&quot;: 'PROD'...}" />
+            <marker date="1518967554411" expanded="true" signature="81:220" ph="{...}" />
+            <marker date="1518967554411" expanded="true" signature="180:214" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -859,8 +867,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="53" column="5" lean-forward="false" selection-start-line="53" selection-start-column="5" selection-end-line="53" selection-end-column="5" />
+        <state relative-caret-position="1152">
+          <caret line="93" column="9" lean-forward="true" selection-start-line="93" selection-start-column="9" selection-end-line="93" selection-end-column="9" />
           <folding />
         </state>
       </provider>
