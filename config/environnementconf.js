@@ -1,12 +1,12 @@
 module.exports ={
-    environnement : 'DEV',
+    environnement : 'PROD',
     getListeningPort : function () {
         if(this.environnement == "DEV")
         {
             return 4444;
         }
         else{
-            return 8080;
+            return 8888;
         }
     }
 };
