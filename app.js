@@ -53,6 +53,7 @@ configSession.initialize(app);
 try{
     https.createServer(require('./config/https').options, app).listen(port, function () {
         console.log("Server Launched: " + port);
+        log.info('API have been launched on ' + port);
     });
     /*app.listen(port, function(){
         console.log("API is running on port: " + port);
