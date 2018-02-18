@@ -4,6 +4,7 @@
 var express = require("express");
 var mongoose = require("mongoose");
 var cors = require("cors");
+var favicon = require('serve-favicon');
 var app = express();
 
 var User = require("./model/user");
@@ -41,7 +42,7 @@ var corsOptions = {
     credentials: true
 };
 app.use(cors(corsOptions));
-
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use('/project/image' , express.static(__dirname + '/data/images/projects'));
 app.use('/article/image' , express.static(__dirname + '/data/images/articles'));
 
