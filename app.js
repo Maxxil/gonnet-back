@@ -51,10 +51,10 @@ configSession.initialize(app);
 
 
 try{
-    /*https.createServer(require('./config/https').options, app).listen(port, function () {
-        console.log("Server Launched");
-    });*/
-    app.listen(port, function(){
+    https.createServer(require('./config/https').options, app).listen(port, function () {
+        console.log("Server Launched: " + port);
+    });
+    /*app.listen(port, function(){
         console.log("API is running on port: " + port);
         log.info('API have been launched');
         mongoose.Promise = global.Promise;
@@ -91,7 +91,7 @@ try{
             console.log(error);
             log.error(error);
         })
-    });
+    });*/
 }
 catch(error)
 {
