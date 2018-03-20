@@ -50,10 +50,6 @@ configSession.initialize(app);
 
 
 try{
-    /*https.createServer(require('./config/https').options, app).listen(port, 'localhost', function () {
-        console.log("Server Launched: " + port);
-        log.info('API have been launched on ' + port);
-    });*/
     app.listen(port, function(){
         console.log("API is running on port: " + port);
         log.info('API have been launched');
@@ -70,7 +66,8 @@ try{
                 console.log("Admin non trouvé");
                 var user = User({
                     username : 'admin',
-                    password : 'admin'
+                    password : 'admin',
+                    isFirstConnection : 'true'
                 });
                 var promise = user.save();
                 promise.then(function(data){

@@ -23,12 +23,13 @@
      var nom = req.body.nom;
      var email = req.body.email;
      var message = req.body.message;
+     var object = req.body.object;
 
      var content = "Mr/Mme " + nom + " vous a envoyé un message.\n" +
          "Voici son message: \n" + message + "\n" +
          "Voici son mail pour recontacter : " + email;
 
-     MailService.sendMail(content);
+     MailService.sendMail(content, object);
      var mail = Mail({
          nom : nom,
          email : email,

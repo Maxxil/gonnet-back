@@ -9,15 +9,16 @@ var log = require('./../config/log4js');
 
 module.exports =
     {
-        sendMail : function(text) {
+        sendMail : function(text, object) {
             var smtpConfig = MailConfig;
             var transporter =  nodemail.createTransport(smtpConfig);
             console.log("Transporter initialized");
 
             var messsage = {
                 from : "massil.kadi@gmail.com",
-                to : "anthony.gonnet.42@gmail.com",
-                subject : 'Contact depuis www.anthony-gonnet.com',
+                //to : "anthony.gonnet.42@gmail.com",
+                to: 'massil.kadi@gmail.com',
+                subject : object,
                 text : text,
                 html : ''
             };

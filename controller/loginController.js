@@ -6,22 +6,17 @@ var bodyParser = require('body-parser');
 var morgan = require('morgan');
 
 var User = require('./../model/user');
-var security = require('./../config/security');
 var jwt = require('./../helper/tokenHelper');
 var env = require('./../config/environnementconf');
 
 var log = require('./../config/log4js').getLogger('gonnetLogger');
 router.use(bodyParser.json());
 
-
-router.use(morgan(env.environnement));
-
 router.post('/' , function(req , res)
 {
     log.info('Login GET');
     var username = req.body.username;
     var password = req.body.password;
-    console.log(username);
     var promise = User.find({username : username , password : password}).exec();
     promise.then(function (user) {
         console.log(user.length > 0);
@@ -30,7 +25,8 @@ router.post('/' , function(req , res)
             console.log('Success');
             res.json({
                 success : true,
-                token : token
+                token : token,
+                isFirstConnection : user.isFirstConnection
             });
         }
         else
@@ -41,13 +37,17 @@ router.post('/' , function(req , res)
             })
         }
         res.end();
-
     }).catch(function (error) {
         console.log("Error: " + error);
         res.send(error);
         log.error(error);
         res.end("END");
     });
+});
+
+router.put('/' , function (req , res) {
+    var username = req.body.username;
+    var password = req.body.password;
 });
 
 module.exports = router;
