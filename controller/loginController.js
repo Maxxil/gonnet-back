@@ -23,6 +23,7 @@ router.post('/' , function(req , res)
         if(user.length > 0){
             var token = jwt.generateToken(user);
             console.log('Success');
+            console.log(user);
             res.json({
                 success : true,
                 token : token,
@@ -48,6 +49,7 @@ router.post('/' , function(req , res)
 router.put('/' , function (req , res) {
     var username = req.body.username;
     var password = req.body.password;
+
 });
 
 module.exports = router;
